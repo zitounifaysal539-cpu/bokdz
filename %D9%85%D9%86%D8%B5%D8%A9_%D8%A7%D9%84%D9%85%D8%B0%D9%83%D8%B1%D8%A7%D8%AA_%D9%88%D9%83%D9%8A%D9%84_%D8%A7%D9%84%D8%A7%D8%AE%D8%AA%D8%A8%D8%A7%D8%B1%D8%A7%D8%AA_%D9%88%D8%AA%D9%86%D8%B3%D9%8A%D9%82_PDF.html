@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة المذكرات البيداغوجية</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{text-decoration:none}
+.navlinks{display:flex;gap:28px}
+@media (max-width:720px){.navlinks{display:none}}
+
+
+/* Added sections */
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-list details{border:1px solid #E3DED2;border-radius:12px;background:#fff;padding:16px 18px}
+.faq-list summary{cursor:pointer;font-weight:800;color:#173D2B;list-style:none}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary:after{content:"＋";float:left;color:#0F6B46;font-size:20px}
+.faq-list details[open] summary:after{content:"−"}
+.faq-list p{margin:12px 0 0;color:#55645B}
+.walkthrough{background:#102D21;border-radius:18px;padding:18px;color:white;overflow:hidden;max-width:900px}
+.walk-head{display:flex;justify-content:space-between;font-weight:700;color:#D9E9DE}
+.walk-timer{font-variant-numeric:tabular-nums}
+.walk-screen{position:relative;min-height:190px;display:flex;align-items:center;justify-content:center;margin:16px 0;background:linear-gradient(135deg,#194C36,#0B241A);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:18px}
+.walk-card{position:absolute;width:min(90%,560px);box-sizing:border-box;background:#fff;color:#183326;border-radius:12px;padding:18px 22px;opacity:0;transform:translateY(12px);animation:walkCycle 30s infinite}
+.walk-card strong{display:block;font-size:21px;margin:4px 0}
+.walk-card p{margin:4px 0 12px;color:#56675D}
+.walk-num{display:inline-flex;background:#E4F0E9;color:#0A4D32;padding:2px 9px;border-radius:20px;font-weight:800}
+.walk-fields{display:flex;gap:7px;flex-wrap:wrap}.walk-fields i,.walk-chip{font-style:normal;background:#EAF2EC;color:#14583B;border-radius:7px;padding:5px 9px;font-size:13px}
+.walk-chip{display:inline-block;font-weight:800}.walk-lines{display:grid;gap:7px}.walk-lines i{height:7px;border-radius:8px;background:#DDE6DF}.walk-lines i:nth-child(2){width:82%}.walk-lines i:nth-child(3){width:64%}
+.walk-one{animation-delay:0s}.walk-two{animation-delay:7.5s}.walk-three{animation-delay:15s}.walk-four{animation-delay:22.5s}
+@keyframes walkCycle{0%,3%{opacity:0;transform:translateY(12px)}6%,21%{opacity:1;transform:translateY(0)}24%,100%{opacity:0;transform:translateY(-8px)}}
+.walk-progress{height:5px;background:rgba(255,255,255,.2);border-radius:8px;overflow:hidden}.walk-progress i{display:block;height:100%;width:0;background:#C9DDBF;animation:walkProgress 30s linear infinite}
+@keyframes walkProgress{to{width:100%}}
+.walk-steps{display:flex;justify-content:space-between;color:#D9E9DE;font-size:13px;margin-top:8px}
+@media(prefers-reduced-motion:reduce){.walk-card,.walk-progress i{animation:none}.walk-one{opacity:1;transform:none}.walk-two,.walk-three,.walk-four{display:none}}
+@media(max-width:600px){.walk-screen{min-height:230px}.walk-card{padding:14px}.walk-card strong{font-size:18px}}
+
+/* Glassmorphism visual refresh */
+:root{
+ --glass-ink:#10271d;
+ --glass-green:#174d36;
+ --glass-accent:#b9d7c4;
+ --glass-border:rgba(255,255,255,.58);
+}
+html{scroll-behavior:smooth}
+body{
+ background:
+  radial-gradient(ellipse at 12% 8%,rgba(174,211,187,.42),transparent 34%),
+  radial-gradient(ellipse at 88% 18%,rgba(213,196,151,.28),transparent 30%),
+  linear-gradient(135deg,#edf4ee 0%,#f7f5ed 48%,#e7efe9 100%) !important;
+ color:var(--glass-ink);
+}
+header,nav,[role="navigation"]{
+ background:rgba(255,255,255,.68) !important;
+ border:1px solid rgba(255,255,255,.75) !important;
+ box-shadow:0 8px 32px rgba(31,66,48,.08) !important;
+ backdrop-filter:blur(18px) saturate(155%);
+ -webkit-backdrop-filter:blur(18px) saturate(155%);
+}
+section:not(#demo-video):not(#teachers){
+ background-color:transparent !important;
+}
+section#demo-video,section#teachers{
+ background:rgba(255,255,255,.27) !important;
+ backdrop-filter:blur(14px);
+ -webkit-backdrop-filter:blur(14px);
+}
+article,.faq-list details,.walkthrough,
+#comparison article,
+section#contact>div>div,
+section#curriculum>div,
+section#teachers>div{
+ border:1px solid var(--glass-border) !important;
+ background:rgba(255,255,255,.53) !important;
+ box-shadow:0 12px 36px rgba(31,66,48,.09),inset 0 1px 0 rgba(255,255,255,.7) !important;
+ backdrop-filter:blur(16px) saturate(145%);
+ -webkit-backdrop-filter:blur(16px) saturate(145%);
+ border-radius:20px !important;
+}
+.walkthrough{
+ background:linear-gradient(135deg,rgba(18,55,39,.92),rgba(28,83,57,.86)) !important;
+ color:#fff !important;
+}
+.walk-screen{
+ background:rgba(255,255,255,.10) !important;
+ border:1px solid rgba(255,255,255,.22) !important;
+}
+.walk-card{
+ background:rgba(255,255,255,.91) !important;
+ border:1px solid rgba(255,255,255,.85);
+ box-shadow:0 12px 30px rgba(0,0,0,.13);
+}
+.faq-list details{
+ background:rgba(255,255,255,.66) !important;
+}
+.faq-list details[open]{background:rgba(255,255,255,.84) !important}
+button,a[role="button"]{
+ transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+button:hover,a[role="button"]:hover{
+ transform:translateY(-2px);
+ box-shadow:0 8px 22px rgba(20,75,49,.17);
+}
+input,select,textarea{
+ background:rgba(255,255,255,.68) !important;
+ border:1px solid rgba(255,255,255,.82) !important;
+ border-radius:12px !important;
+ backdrop-filter:blur(10px);
+}
+footer{
+ background:rgba(16,39,29,.92) !important;
+ color:#f5f7f2 !important;
+ backdrop-filter:blur(18px);
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ button,a[role="button"]{transition:none}
+}
+
+
+/* Functional assessment creator */
+.assessment-section{padding:70px 22px;background:rgba(231,241,234,.48)!important}
+.assessment-wrap{max-width:1100px;margin:auto}
+.section-intro{max-width:760px;margin:0 auto 28px;text-align:center}
+.section-intro h2{font-size:clamp(27px,4vw,38px);margin:8px 0;color:#10271d}
+.section-intro p{color:#586a60;font-size:17px;line-height:1.8}
+.eyebrow{display:inline-block;padding:6px 14px;border-radius:30px;background:#dcebe1;color:#14583b;font-weight:800}
+.assessment-panel{background:rgba(255,255,255,.67);border:1px solid rgba(255,255,255,.8);border-radius:22px;padding:clamp(16px,3vw,30px);box-shadow:0 14px 40px rgba(25,65,43,.1);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.assessment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.assessment-grid label{display:flex;flex-direction:column;gap:7px;color:#294b38;font-weight:700;font-size:14px}
+.assessment-grid input,.assessment-grid select,.question-item textarea,.question-item input{width:100%;box-sizing:border-box;border:1px solid #d5e0d8;border-radius:11px;padding:12px;background:rgba(255,255,255,.85);font:inherit;color:#1b3024;min-width:0}
+.question-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px}
+.question-head h3{margin:0 0 5px;font-size:21px}.question-head p,.small-note{margin:0;color:#64746a;font-size:13px;line-height:1.7}
+.question-list{display:grid;gap:12px}
+.question-item{display:grid;grid-template-columns:1fr 105px 42px;gap:10px;align-items:start;background:rgba(244,248,245,.8);border:1px solid #dce7df;padding:13px;border-radius:14px}
+.question-item textarea{min-height:76px;resize:vertical}
+.question-item label{font-size:12px;color:#52675a;display:flex;flex-direction:column;gap:5px}
+.remove-question{border:0;border-radius:10px;background:#f8e8e5;color:#a33c2e;font-size:20px;height:42px;cursor:pointer}
+.action-btn{border:1px solid #176344;background:#fff;color:#14583b;border-radius:11px;padding:11px 16px;font:700 14px inherit;cursor:pointer}
+.action-primary{background:#0f6b46;color:#fff;padding:13px 22px}
+.action-secondary{background:#f7faf7}
+.action-btn:disabled{opacity:.45;cursor:not-allowed}
+.assessment-actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 12px}
+.tool-result{margin-top:12px;padding:14px;background:#edf5ef;border:1px solid #d3e4d8;border-radius:13px}
+.tool-result textarea{display:block;width:100%;box-sizing:border-box;margin:10px 0;padding:12px;border:1px solid #cbdccf;border-radius:10px;direction:rtl;font:14px/1.7 Tahoma,Arial}
+.tool-result p{font-size:12px;color:#52675a}
+.print-only{display:none}
+@media(max-width:620px){.assessment-grid{grid-template-columns:1fr}.question-item{grid-template-columns:1fr 82px 38px;padding:9px}.question-head{align-items:flex-start;flex-direction:column}.assessment-section{padding:48px 14px}}
+@media print{
+ @page{size:A4 portrait;margin:11mm 12mm}
+ html,body{margin:0!important;padding:0!important;width:100%!important;background:#fff!important;color:#17231b!important}
+ body>*{display:none!important}
+ #assessmentPrint{display:block!important;position:static!important;inset:auto!important;width:100%!important;margin:0!important;padding:0!important;background:#fff!important;color:#17231b!important;font-family:Tahoma,Arial,sans-serif!important;direction:rtl!important}
+ #assessmentPrint *{visibility:visible!important;box-sizing:border-box}
+ .print-sheet{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;font-size:11.5pt!important;line-height:1.55!important;color:#17231b!important}
+ .print-top{text-align:center;border:1.5px solid #23583d;border-radius:8px;padding:8px 12px!important;margin:0 0 9px!important;background:#f2f7f3!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .print-top h2{font-size:17pt!important;margin:4px 0!important}
+ .print-meta{display:grid!important;grid-template-columns:1fr 1fr;gap:3px 14px!important;margin:8px 0 10px!important;padding:8px 10px!important;border:1px solid #d5dfd8;border-radius:7px}
+ .print-question{margin:10px 0!important;padding:0 0 7px!important;border-bottom:1px solid #e0e5e1;break-inside:avoid!important;page-break-inside:avoid!important}
+ .print-question h4{font-size:11.5pt!important;font-weight:700!important;margin:0 0 4px!important;line-height:1.6!important}
+ .print-answer-space{height:23px!important;border-bottom:1px dotted #aab5ad!important;margin-top:4px!important}
+ .print-footer{border-top:1px solid #8b998f;margin-top:12px!important;padding-top:7px!important;display:flex!important;justify-content:space-between!important;font-size:10pt!important}
+ .print-sheet *{box-shadow:none!important;text-shadow:none!important}
+}
+</style>
+
+</head>
+<body>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{text-decoration:none}
+.navlinks{display:flex;gap:28px}
+@media (max-width:720px){.navlinks{display:none}}
+
+
+/* Added sections */
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-list details{border:1px solid #E3DED2;border-radius:12px;background:#fff;padding:16px 18px}
+.faq-list summary{cursor:pointer;font-weight:800;color:#173D2B;list-style:none}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary:after{content:"＋";float:left;color:#0F6B46;font-size:20px}
+.faq-list details[open] summary:after{content:"−"}
+.faq-list p{margin:12px 0 0;color:#55645B}
+.walkthrough{background:#102D21;border-radius:18px;padding:18px;color:white;overflow:hidden;max-width:900px}
+.walk-head{display:flex;justify-content:space-between;font-weight:700;color:#D9E9DE}
+.walk-timer{font-variant-numeric:tabular-nums}
+.walk-screen{position:relative;min-height:190px;display:flex;align-items:center;justify-content:center;margin:16px 0;background:linear-gradient(135deg,#194C36,#0B241A);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:18px}
+.walk-card{position:absolute;width:min(90%,560px);box-sizing:border-box;background:#fff;color:#183326;border-radius:12px;padding:18px 22px;opacity:0;transform:translateY(12px);animation:walkCycle 30s infinite}
+.walk-card strong{display:block;font-size:21px;margin:4px 0}
+.walk-card p{margin:4px 0 12px;color:#56675D}
+.walk-num{display:inline-flex;background:#E4F0E9;color:#0A4D32;padding:2px 9px;border-radius:20px;font-weight:800}
+.walk-fields{display:flex;gap:7px;flex-wrap:wrap}.walk-fields i,.walk-chip{font-style:normal;background:#EAF2EC;color:#14583B;border-radius:7px;padding:5px 9px;font-size:13px}
+.walk-chip{display:inline-block;font-weight:800}.walk-lines{display:grid;gap:7px}.walk-lines i{height:7px;border-radius:8px;background:#DDE6DF}.walk-lines i:nth-child(2){width:82%}.walk-lines i:nth-child(3){width:64%}
+.walk-one{animation-delay:0s}.walk-two{animation-delay:7.5s}.walk-three{animation-delay:15s}.walk-four{animation-delay:22.5s}
+@keyframes walkCycle{0%,3%{opacity:0;transform:translateY(12px)}6%,21%{opacity:1;transform:translateY(0)}24%,100%{opacity:0;transform:translateY(-8px)}}
+.walk-progress{height:5px;background:rgba(255,255,255,.2);border-radius:8px;overflow:hidden}.walk-progress i{display:block;height:100%;width:0;background:#C9DDBF;animation:walkProgress 30s linear infinite}
+@keyframes walkProgress{to{width:100%}}
+.walk-steps{display:flex;justify-content:space-between;color:#D9E9DE;font-size:13px;margin-top:8px}
+@media(prefers-reduced-motion:reduce){.walk-card,.walk-progress i{animation:none}.walk-one{opacity:1;transform:none}.walk-two,.walk-three,.walk-four{display:none}}
+@media(max-width:600px){.walk-screen{min-height:230px}.walk-card{padding:14px}.walk-card strong{font-size:18px}}
+
+/* Glassmorphism visual refresh */
+:root{
+ --glass-ink:#10271d;
+ --glass-green:#174d36;
+ --glass-accent:#b9d7c4;
+ --glass-border:rgba(255,255,255,.58);
+}
+html{scroll-behavior:smooth}
+body{
+ background:
+  radial-gradient(ellipse at 12% 8%,rgba(174,211,187,.42),transparent 34%),
+  radial-gradient(ellipse at 88% 18%,rgba(213,196,151,.28),transparent 30%),
+  linear-gradient(135deg,#edf4ee 0%,#f7f5ed 48%,#e7efe9 100%) !important;
+ color:var(--glass-ink);
+}
+header,nav,[role="navigation"]{
+ background:rgba(255,255,255,.68) !important;
+ border:1px solid rgba(255,255,255,.75) !important;
+ box-shadow:0 8px 32px rgba(31,66,48,.08) !important;
+ backdrop-filter:blur(18px) saturate(155%);
+ -webkit-backdrop-filter:blur(18px) saturate(155%);
+}
+section:not(#demo-video):not(#teachers){
+ background-color:transparent !important;
+}
+section#demo-video,section#teachers{
+ background:rgba(255,255,255,.27) !important;
+ backdrop-filter:blur(14px);
+ -webkit-backdrop-filter:blur(14px);
+}
+article,.faq-list details,.walkthrough,
+#comparison article,
+section#contact>div>div,
+section#curriculum>div,
+section#teachers>div{
+ border:1px solid var(--glass-border) !important;
+ background:rgba(255,255,255,.53) !important;
+ box-shadow:0 12px 36px rgba(31,66,48,.09),inset 0 1px 0 rgba(255,255,255,.7) !important;
+ backdrop-filter:blur(16px) saturate(145%);
+ -webkit-backdrop-filter:blur(16px) saturate(145%);
+ border-radius:20px !important;
+}
+.walkthrough{
+ background:linear-gradient(135deg,rgba(18,55,39,.92),rgba(28,83,57,.86)) !important;
+ color:#fff !important;
+}
+.walk-screen{
+ background:rgba(255,255,255,.10) !important;
+ border:1px solid rgba(255,255,255,.22) !important;
+}
+.walk-card{
+ background:rgba(255,255,255,.91) !important;
+ border:1px solid rgba(255,255,255,.85);
+ box-shadow:0 12px 30px rgba(0,0,0,.13);
+}
+.faq-list details{
+ background:rgba(255,255,255,.66) !important;
+}
+.faq-list details[open]{background:rgba(255,255,255,.84) !important}
+button,a[role="button"]{
+ transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+button:hover,a[role="button"]:hover{
+ transform:translateY(-2px);
+ box-shadow:0 8px 22px rgba(20,75,49,.17);
+}
+input,select,textarea{
+ background:rgba(255,255,255,.68) !important;
+ border:1px solid rgba(255,255,255,.82) !important;
+ border-radius:12px !important;
+ backdrop-filter:blur(10px);
+}
+footer{
+ background:rgba(16,39,29,.92) !important;
+ color:#f5f7f2 !important;
+ backdrop-filter:blur(18px);
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ button,a[role="button"]{transition:none}
+}
+
+</style>
+
+<div dir="rtl" style="font-family: 'Cairo', Tahoma, Arial, sans-serif; background: #FAF8F3; color: #15241C; width: 100%; box-sizing: border-box; line-height: 1.7">
+
+<!-- Header -->
+<header style="border-bottom: 1px solid #E3DED2; background: #FAF8F3">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 44px; height: 44px; border-radius: 12px; background: #0F6B46; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path><path d="M10 13h6M10 17h6"></path></svg>
+</div>
+<span style="font-size: 22px; font-weight: 800; color: #0A4D32">[اسم المنصة]</span>
+</div>
+<nav class="navlinks" aria-label="التنقل الرئيسي">
+<a href="#tabs" style="color: #15241C; font-weight: 600; font-size: 16px">الخدمات</a>
+<a href="#how" style="color: #15241C; font-weight: 600; font-size: 16px">كيف تعمل؟</a>
+<a href="#export" style="color: #15241C; font-weight: 600; font-size: 16px">التصدير</a>\n<a href="#assessment" style="color: #15241C; font-weight: 600; font-size: 16px">إنشاء اختبار</a>
+<a href="#faq" style="color: #15241C; font-weight: 600; font-size: 16px">الأسئلة الشائعة</a>
+</nav>
+<a href="#start" style="background: #0F6B46; color: #FFFFFF; font-weight: 700; font-size: 16px; padding: 10px 24px; border-radius: 10px; min-height: 24px">ابدأ الآن</a>
+</div>
+</header>
+
+<!-- Hero -->
+<section id="start" style="max-width: 1200px; margin: 0 auto; padding: 72px 24px 80px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px; align-items: flex-start">
+<span style="background: #E4F0E9; color: #0A4D32; font-weight: 700; font-size: 15px; padding: 6px 16px; border-radius: 999px">مناهج الجيل الثاني</span>
+<h1 style="margin: 0; font-size: clamp(34px, 5.4vw, 56px); line-height: 1.3; font-weight: 800; color: #15241C">حضّر وثائقك البيداغوجية <span style="color: #0F6B46">في دقائق</span></h1>
+<p style="margin: 0; font-size: 20px; color: #55645B; max-width: 560px">منصة موجّهة للأستاذ الجزائري، تساعدك على إعداد مذكراتك واختباراتك ودروسك وفق مناهج الجيل الثاني، للأطوار الثلاثة.</p>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<span style="border: 1px solid #CFC8B8; background: #FFFFFF; padding: 6px 18px; border-radius: 999px; font-weight: 600; font-size: 16px">ابتدائي</span>
+<span style="border: 1px solid #CFC8B8; background: #FFFFFF; padding: 6px 18px; border-radius: 999px; font-weight: 600; font-size: 16px">متوسط</span>
+<span style="border: 1px solid #CFC8B8; background: #FFFFFF; padding: 6px 18px; border-radius: 999px; font-weight: 600; font-size: 16px">ثانوي</span>
+</div>
+<div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px">
+<a href="#how" style="background: #0F6B46; color: #FFFFFF; font-weight: 700; font-size: 18px; padding: 14px 32px; border-radius: 12px">جرّب المنصة</a>
+<a href="#tabs" style="background: transparent; color: #0A4D32; border: 2px solid #0F6B46; font-weight: 700; font-size: 18px; padding: 12px 30px; border-radius: 12px">اكتشف الخدمات</a>
+</div>
+</div>
+
+<!-- Hero form mock -->
+<div style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E3DED2; border-radius: 20px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 18px 40px rgba(21, 36, 28, 0.08)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-size: 20px; font-weight: 800">مذكرة الدرس</span>
+<span style="background: #E4F0E9; color: #0A4D32; font-size: 14px; font-weight: 700; padding: 3px 12px; border-radius: 999px">الخطوة 1</span>
+</div>
+<div style="display: flex; gap: 14px; flex-wrap: wrap">
+<div style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<label for="f-phase" style="font-size: 15px; font-weight: 600; color: #55645B">الطور</label>
+<select id="f-phase" style="font-family: 'Cairo', Tahoma, Arial, sans-serif; font-size: 16px; padding: 10px 12px; border: 1px solid #CFC8B8; border-radius: 10px; background: #FAF8F3; color: #15241C; width: 100%; box-sizing: border-box">
+<option>ابتدائي</option>
+<option>متوسط</option>
+<option>ثانوي</option>
+</select>
+</div>
+<div style="flex: 1 1 150px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<label for="f-level" style="font-size: 15px; font-weight: 600; color: #55645B">المستوى</label>
+<select id="f-level" style="font-family: 'Cairo', Tahoma, Arial, sans-serif; font-size: 16px; padding: 10px 12px; border: 1px solid #CFC8B8; border-radius: 10px; background: #FAF8F3; color: #15241C; width: 100%; box-sizing: border-box">
+<option>اختر المستوى</option>
+</select>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-subject" style="font-size: 15px; font-weight: 600; color: #55645B">المادة</label>
+<select id="f-subject" style="font-family: 'Cairo', Tahoma, Arial, sans-serif; font-size: 16px; padding: 10px 12px; border: 1px solid #CFC8B8; border-radius: 10px; background: #FAF8F3; color: #15241C; width: 100%; box-sizing: border-box">
+<option>اختر المادة</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-title" style="font-size: 15px; font-weight: 600; color: #55645B">عنوان الدرس</label>
+<input id="f-title" type="text" placeholder="اكتب عنوان الدرس" style="font-family: 'Cairo', Tahoma, Arial, sans-serif; font-size: 16px; padding: 10px 12px; border: 1px solid #CFC8B8; border-radius: 10px; background: #FAF8F3; color: #15241C; width: 100%; box-sizing: border-box">
+</div>
+<button id="makeLessonPrompt" type="button" style="background: #0F6B46; color: #FFFFFF; border:0; font-weight: 700; font-size: 17px; padding: 12px 24px; border-radius: 12px; text-align: center; cursor:pointer;font-family:inherit">جهّز البرومبت</button>
+<div id="lessonPromptResult" class="tool-result" hidden>
+  <strong>البرومبت جاهز</strong>
+  <textarea id="lessonPromptText" rows="7" readonly aria-label="البرومبت الناتج"></textarea>
+  <button type="button" class="action-btn" id="copyLessonPrompt">نسخ البرومبت</button>
+  <p>انسخه إلى نموذج محادثة مثل ChatGPT أو Gemini، ثم راجع النتيجة تربويًا.</p>
+</div>
+</div>
+</section>
+
+
+
+<section id="assessment-agent" class="assessment-section">
+ <div class="assessment-wrap">
+  <div class="section-intro">
+   <span class="eyebrow">مساعد إعداد الاختبارات</span>
+   <h2>وكيل إعداد الفروض والاختبارات</h2>
+   <p>جهّز مواصفات الاختبار وسلّم التنقيط ونموذج الإجابة في طلب واحد. يحتاج التوليد التلقائي المباشر إلى ربط آمن بخدمة ذكاء اصطناعي.</p>
+  </div>
+  <div class="assessment-panel">
+   <div class="assessment-grid">
+    <label>عنوان الوحدة أو الدروس<input id="agent-lessons" placeholder="مثال: النسب المئوية، التناسبية..."></label>
+    <label>عدد التمارين<input id="agent-count" type="number" min="1" max="10" value="3"></label>
+    <label>مستوى الصعوبة<select id="agent-difficulty"><option>متدرج</option><option>سهل</option><option>متوسط</option><option>متقدم</option></select></label>
+    <label>نوع الأسئلة<select id="agent-types"><option>متنوعة</option><option>وضعيات إدماجية</option><option>أسئلة قصيرة</option><option>اختيار من متعدد</option><option>تمارين تطبيقية</option></select></label>
+   </div>
+   <div class="assessment-actions">
+    <button type="button" class="action-btn action-primary" id="agentMakePrompt">إعداد تعليمات الوكيل</button>
+    <button type="button" class="action-btn" id="agentCopyPrompt" disabled>نسخ التعليمات</button>
+   </div>
+   <div id="agentPromptBox" class="tool-result" hidden>
+    <strong>تعليمات الوكيل جاهزة</strong>
+    <textarea id="agentPrompt" rows="10" readonly></textarea>
+    <p>أرسل هذه التعليمات إلى نموذج محادثة، ثم انقل الأسئلة الناتجة إلى أداة إنشاء الورقة. لا تعتمد المحتوى قبل مراجعته.</p>
+   </div>
+   <p class="small-note">لا يوجد اتصال تلقائي بنموذج ذكاء اصطناعي في ملف HTML وحده. تشغيل وكيل مستقل يتطلب خادمًا آمنًا ومفتاح API محفوظًا على الخادم، وليس داخل صفحة الموقع.</p>
+  </div>
+ </div>
+</section>
+
+<!-- Assessment creator -->
+<section id="assessment" class="assessment-section">
+ <div class="assessment-wrap">
+  <div class="section-intro">
+   <span class="eyebrow">أداة إعداد التقويم</span>
+   <h2>أنشئ فرضًا أو اختبارًا وصدّره PDF</h2>
+   <p>أدخل بيانات التقييم والأسئلة والتنقيط، ثم أنشئ ورقة منظمة قابلة للطباعة والحفظ بصيغة PDF.</p>
+  </div>
+  <div class="assessment-panel">
+   <div class="assessment-grid">
+    <label>نوع التقييم
+     <select id="a-kind"><option value="فرض">فرض</option><option value="اختبار">اختبار</option><option value="تقويم">تقويم</option></select>
+    </label>
+    <label>الفصل الدراسي
+     <select id="a-term"><option>الفصل الأول</option><option>الفصل الثاني</option><option>الفصل الثالث</option></select>
+    </label>
+    <label>الطور
+     <select id="a-phase"><option value="ابتدائي">ابتدائي</option><option value="متوسط">متوسط</option><option value="ثانوي">ثانوي</option></select>
+    </label>
+    <label>المستوى
+     <select id="a-level"></select>
+    </label>
+    <label>المادة
+     <select id="a-subject"></select>
+    </label>
+    <label>المدة
+     <input id="a-duration" type="text" value="ساعة واحدة" placeholder="مثال: ساعة واحدة">
+    </label>
+    <label>المؤسسة
+     <input id="a-school" type="text" placeholder="اسم المؤسسة">
+    </label>
+    <label>الأستاذ
+     <input id="a-teacher" type="text" placeholder="اسم الأستاذ">
+    </label>
+    <label>القسم
+     <input id="a-class" type="text" placeholder="القسم أو الفوج">
+    </label>
+    <label>العلامة الكلية
+     <input id="a-total" type="number" min="1" max="100" value="20">
+    </label>
+   </div>
+   <div class="question-head">
+    <div><h3>أسئلة التقييم</h3><p>أضف الأسئلة وحدد النقطة المخصصة لكل سؤال.</p></div>
+    <button type="button" class="action-btn" id="addQuestion">＋ إضافة سؤال</button>
+   </div>
+   <div id="questionList" class="question-list"></div>
+   <div class="assessment-actions">
+    <button type="button" class="action-btn action-primary" id="buildAssessment">إنشاء ورقة التقييم</button>
+    <button type="button" class="action-btn action-secondary" id="printAssessment" disabled>حفظ الاختبار PDF</button>
+   </div>
+   <p class="small-note">تعمل أداة إعداد الورقة دون اتصال. لإنشاء أسئلة آلية مطابقة بدقة للمنهاج، يلزم ربط المنصة لاحقًا بخدمة ذكاء اصطناعي ومراجعة مخرجاتها.</p>
+  </div>
+ </div>
+</section>
+
+<section id="assessmentPrint" class="print-only" aria-live="polite"></section>
+
+<!-- Tabs -->
+<section id="tabs" style="background: #FFFFFF; border-top: 1px solid #E3DED2; border-bottom: 1px solid #E3DED2">
+<div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px 80px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 640px">
+<h2 style="margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.35">أربع أدوات لكل ما يحتاجه الأستاذ</h2>
+<p style="margin: 0; font-size: 18px; color: #55645B">اختر التبويب المناسب، وحدّد الطور والمستوى والمادة، وابدأ.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+
+<article style="flex: 1 1 240px; min-width: 0; background: #FAF8F3; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 52px; height: 52px; border-radius: 14px; background: #E4F0E9; display: flex; align-items: center; justify-content: center">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0A4D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path><path d="M10 13h6M10 17h6"></path></svg>
+</div>
+<h3 style="margin: 0; font-size: 22px; font-weight: 800">مذكرة الدرس</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">مذكرة كاملة ومنسقة في القالب الرسمي.</p>
+</article>
+
+<article style="flex: 1 1 240px; min-width: 0; background: #FAF8F3; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 52px; height: 52px; border-radius: 14px; background: #E4F0E9; display: flex; align-items: center; justify-content: center">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0A4D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 4V3h6v1"></path><path d="m9 13 2 2 4-4"></path></svg>
+</div>
+<h3 style="margin: 0; font-size: 22px; font-weight: 800">الاختبارات والفروض</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">إعداد المواضيع حسب المستوى والمادة.</p>
+</article>
+
+<article style="flex: 1 1 240px; min-width: 0; background: #FAF8F3; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 52px; height: 52px; border-radius: 14px; background: #E4F0E9; display: flex; align-items: center; justify-content: center">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0A4D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="6" cy="18" r="1.5"></circle><path d="M11 6h8M11 12h8M11 18h8"></path></svg>
+</div>
+<h3 style="margin: 0; font-size: 22px; font-weight: 800">الدروس الموجهة</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">درس منظم خطوة بخطوة.</p>
+</article>
+
+<article style="flex: 1 1 240px; min-width: 0; background: #0F6B46; color: #FFFFFF; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.16); display: flex; align-items: center; justify-content: center">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"></path><path d="m3 13 9 5 9-5"></path></svg>
+</div>
+<span style="background: #B93A1E; color: #FFFFFF; font-size: 14px; font-weight: 700; padding: 3px 12px; border-radius: 999px">لأول مرة في الجزائر</span>
+</div>
+<h3 style="margin: 0; font-size: 22px; font-weight: 800">مذكرة المقطع</h3>
+<p style="margin: 0; font-size: 17px; color: #E4F0E9">مخطط شامل لكل دروس المقطع في صفحتين.</p>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- How it works -->
+<section id="how" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 640px">
+<h2 style="margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.35">كيف تعمل؟</h2>
+<p style="margin: 0; font-size: 18px; color: #55645B">أربع خطوات من اختيار الدرس إلى ملف جاهز للطباعة.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+
+<div style="flex: 1 1 240px; min-width: 0; background: #FFFFFF; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 44px; height: 44px; border-radius: 999px; background: #0F6B46; color: #FFFFFF; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center">1</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 800">اختر درسك</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">اختر الطور، المستوى، المادة وعنوان الدرس.</p>
+</div>
+
+<div style="flex: 1 1 240px; min-width: 0; background: #FFFFFF; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 44px; height: 44px; border-radius: 999px; background: #0F6B46; color: #FFFFFF; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center">2</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 800">انسخ البرومبت</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">المنصة تجهز لك الطلب (البرومبت)، فتنسخه إلى أي نموذج محادثة مجاني.</p>
+</div>
+
+<div style="flex: 1 1 240px; min-width: 0; background: #FFFFFF; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 44px; height: 44px; border-radius: 999px; background: #0F6B46; color: #FFFFFF; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center">3</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 800">الصق الإجابة</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">الصق الإجابة في المنصة، فتُرتَّب تلقائيًا في قالب المذكرة.</p>
+</div>
+
+<div style="flex: 1 1 240px; min-width: 0; background: #FFFFFF; border: 1px solid #E3DED2; border-radius: 18px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="width: 44px; height: 44px; border-radius: 999px; background: #0F6B46; color: #FFFFFF; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center">4</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 800">راجع وصدّر</h3>
+<p style="margin: 0; font-size: 17px; color: #55645B">راجع وعدّل، ثم صدّر الملف Word أو PDF بالعربية وجاهزًا للطباعة.</p>
+</div>
+
+</div>
+</section>
+
+<!-- 30-second animated walkthrough -->
+<section id="demo-video" style="background:#F0F4EF;border-top:1px solid #E3DED2;border-bottom:1px solid #E3DED2">
+<div style="max-width:1200px;margin:0 auto;padding:64px 24px;box-sizing:border-box">
+<div style="max-width:700px;margin-bottom:24px"><h2 style="margin:0 0 8px;font-size:clamp(26px,4vw,36px);font-weight:800">شاهد طريقة العمل في 30 ثانية</h2><p style="margin:0;color:#55645B;font-size:17px">عرض متحرك مختصر يوضح المراحل الأربع من اختيار الدرس إلى تصدير الملف.</p></div>
+<div class="walkthrough" role="img" aria-label="عرض متحرك مدته ثلاثون ثانية يشرح اختيار الدرس ونسخ البرومبت ولصق الإجابة ثم المراجعة والتصدير">
+<div class="walk-head"><span>جولة سريعة داخل المنصة</span><span class="walk-timer">00:30</span></div>
+<div class="walk-screen">
+<div class="walk-card walk-one"><span class="walk-num">01</span><strong>اختر الدرس</strong><p>الطور ← المستوى ← المادة ← عنوان الدرس</p><div class="walk-fields"><i>ابتدائي</i><i>السنة الخامسة</i><i>اللغة العربية</i></div></div>
+<div class="walk-card walk-two"><span class="walk-num">02</span><strong>انسخ البرومبت</strong><p>طلب واضح ومنظم ترسله إلى نموذج المحادثة الذي تختاره.</p><div class="walk-chip">نسخ البرومبت ✓</div></div>
+<div class="walk-card walk-three"><span class="walk-num">03</span><strong>الصق الإجابة</strong><p>أعد النص الناتج إلى المنصة لترتيبه في أقسام المذكرة.</p><div class="walk-lines"><i></i><i></i><i></i></div></div>
+<div class="walk-card walk-four"><span class="walk-num">04</span><strong>راجع وصدّر</strong><p>تحقق من المحتوى وعدّله ثم اختر الصيغة المناسبة.</p><div class="walk-chip">Word　 PDF</div></div>
+</div>
+<div class="walk-progress"><i></i></div>
+<div class="walk-steps"><span>اختيار</span><span>نسخ</span><span>لصق</span><span>تصدير</span></div>
+</div>
+<p style="font-size:13px;color:#66736A;margin:12px 0 0">هذا عرض توضيحي متحرك داخل الصفحة، وليس تسجيلًا لعملية حقيقية داخل النظام.</p>
+</div>
+</section>
+
+<!-- Export -->
+<section id="export" style="background: #FFFFFF; border-top: 1px solid #E3DED2; border-bottom: 1px solid #E3DED2">
+<div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+<div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.35">ملف عربي جاهز للطباعة</h2>
+<p style="margin: 0; font-size: 18px; color: #55645B">بعد المراجعة والتعديل، صدّر مذكرتك بصيغة Word أو PDF، منسقة من اليمين إلى اليسار وجاهزة للطباعة.</p>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<span style="background: #FAF8F3; border: 1px solid #CFC8B8; padding: 8px 22px; border-radius: 12px; font-weight: 700; font-size: 17px">Word</span>
+<span style="background: #FAF8F3; border: 1px solid #CFC8B8; padding: 8px 22px; border-radius: 12px; font-weight: 700; font-size: 17px">PDF</span>
+</div>
+</div>
+
+<!-- Full illustrative memo preview -->
+<div style="flex: 1 1 420px; min-width: 0; background: #EDE9DF; border: 1px solid #D8D0C0; border-radius: 18px; padding: 18px; box-sizing: border-box">
+<div style="background:#fff; border:1px solid #ddd; box-shadow:0 8px 24px rgba(0,0,0,.08); padding:clamp(18px,3vw,30px); color:#202820; font-size:14px; line-height:1.75">
+<div style="text-align:center;border-bottom:2px solid #176344;padding-bottom:12px;margin-bottom:12px">
+<div style="font-weight:800;font-size:15px">الجمهورية الجزائرية الديمقراطية الشعبية</div>
+<div style="font-weight:700">وزارة التربية الوطنية</div>
+<div style="font-size:19px;font-weight:800;color:#14583B;margin-top:8px">مذكرة تربوية — نموذج توضيحي</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;background:#F5F7F4;padding:10px;border-radius:8px">
+<div><b>المؤسسة:</b> ....................</div><div><b>الأستاذ:</b> ....................</div>
+<div><b>المستوى:</b> السنة الخامسة ابتدائي</div><div><b>المادة:</b> اللغة العربية</div>
+<div><b>الميدان:</b> فهم المكتوب</div><div><b>المدة:</b> 45 دقيقة</div>
+</div>
+<div style="margin-top:12px"><b style="color:#14583B">عنوان الدرس: آداب الحوار</b></div>
+<div style="margin-top:8px"><b>الكفاءة المستهدفة:</b> يفهم المتعلم مضمون نص قصير ويستخرج منه سلوكات إيجابية في التواصل.</div>
+<div style="margin-top:8px"><b>الأهداف التعليمية:</b><ul style="margin:4px 0;padding-right:22px"><li>يحدد الفكرة العامة للنص.</li><li>يستخرج عبارتين تدلان على احترام الآخر.</li><li>يوظف آداب الحوار في وضعية تواصلية.</li></ul></div>
+<div style="margin-top:8px"><b>سيرورة الحصة:</b>
+<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12px">
+<tr style="background:#E8F0EA"><th style="border:1px solid #cbd5cc;padding:6px">المراحل</th><th style="border:1px solid #cbd5cc;padding:6px">نشاط الأستاذ والمتعلم</th></tr>
+<tr><td style="border:1px solid #cbd5cc;padding:6px">التمهيد</td><td style="border:1px solid #cbd5cc;padding:6px">طرح سؤال: كيف نختلف دون أن نتخاصم؟</td></tr>
+<tr><td style="border:1px solid #cbd5cc;padding:6px">بناء التعلمات</td><td style="border:1px solid #cbd5cc;padding:6px">قراءة النص، شرح المفردات، استخراج الأفكار ومناقشتها.</td></tr>
+<tr><td style="border:1px solid #cbd5cc;padding:6px">الاستثمار</td><td style="border:1px solid #cbd5cc;padding:6px">تمثيل حوار قصير يراعي الإصغاء واحترام الرأي.</td></tr>
+</table></div>
+<div style="margin-top:8px"><b>التقويم:</b> اذكر سلوكين يساعدان على إنجاح الحوار، ثم وظّف أحدهما في جملة.</div>
+<div style="border-top:1px solid #ddd;margin-top:14px;padding-top:8px;display:flex;justify-content:space-between;color:#66736A"><span>إعداد ومراجعة الأستاذ</span><span>الإمضاء: ............</span></div>
+</div>
+<div style="font-size:12px;color:#756E60;text-align:center;margin-top:10px">مثال توضيحي لمحتوى مذكرة، وليس قالبًا وزاريًا معتمدًا أو وثيقة رسمية.</div>
+</div>
+</div>
+</section>
+
+<!-- Before / after: no unverified time claims -->
+<section id="comparison" style="max-width:1200px;margin:0 auto;padding:72px 24px;box-sizing:border-box">
+<div style="max-width:700px;margin-bottom:28px"><h2 style="margin:0 0 8px;font-size:clamp(27px,4vw,38px);font-weight:800">من العمل اليدوي إلى مسار أكثر تنظيمًا</h2><p style="margin:0;color:#55645B;font-size:17px">مقارنة في خطوات العمل، دون ادعاء مدة زمنية ثابتة؛ فالوقت يختلف حسب الدرس ومدى التعديل المطلوب.</p></div>
+<div style="display:flex;flex-wrap:wrap;gap:18px">
+<article style="flex:1 1 280px;background:#fff;border:1px solid #E3DED2;border-radius:16px;padding:24px"><span style="font-weight:800;color:#8B5B32">قبل — الإعداد اليدوي</span><h3 style="margin:8px 0">خطوات متفرقة</h3><ul style="padding-right:22px;color:#55645B"><li>البحث عن عناصر المذكرة وتجميعها.</li><li>كتابة المحتوى وتنسيق العناوين والجداول.</li><li>مراجعة التنسيق وتجهيز نسخة للطباعة.</li></ul></article>
+<article style="flex:1 1 280px;background:#F0F6F1;border:1px solid #C9DCCF;border-radius:16px;padding:24px"><span style="font-weight:800;color:#0A6B46">بعد — بمساعدة المنصة</span><h3 style="margin:8px 0">مسار موحّد</h3><ul style="padding-right:22px;color:#43594B"><li>اختيار بيانات الدرس من واجهة واحدة.</li><li>توليد برومبت، ثم الاستعانة بنموذج محادثة.</li><li>ترتيب الإجابة ومراجعتها ثم تصديرها.</li></ul></article>
+</div>
+</section>
+
+<!-- Final CTA -->
+<section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; box-sizing: border-box">
+<div style="background: #0A4D32; border-radius: 24px; padding: 56px 32px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+<h2 style="margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: #FFFFFF; line-height: 1.35">وفّر وقتك، وركّز على تلاميذك</h2>
+<p style="margin: 0; font-size: 18px; color: #D3E6DB; max-width: 560px">ابدأ بإعداد أول مذكرة لك الآن، دون تعقيد.</p>
+<a href="#start" style="background: #FFFFFF; color: #0A4D32; font-weight: 800; font-size: 18px; padding: 14px 36px; border-radius: 12px">ابدأ الآن</a>
+</div>
+</section>
+
+<!-- Curriculum coverage note -->
+<section id="curriculum" style="background:#fff;border-top:1px solid #E3DED2">
+<div style="max-width:1200px;margin:0 auto;padding:56px 24px;box-sizing:border-box">
+<h2 style="margin:0 0 12px;font-size:30px;font-weight:800">مراعاة مناهج الجيل الثاني</h2>
+<p style="margin:0;color:#55645B;font-size:17px;max-width:900px">تستهدف المنصة أساتذة الأطوار الابتدائي والمتوسط والثانوي، وتتيح بناء الطلب بحسب الطور والمستوى والمادة. تختلف التغطية الفعلية باختلاف المادة والمستوى؛ لذلك يُرجى مطابقة المخرجات مع المنهاج والوثائق الرسمية المعتمدة قبل استعمالها.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><span style="background:#E4F0E9;color:#0A4D32;padding:7px 15px;border-radius:30px;font-weight:700">ابتدائي</span><span style="background:#E4F0E9;color:#0A4D32;padding:7px 15px;border-radius:30px;font-weight:700">متوسط</span><span style="background:#E4F0E9;color:#0A4D32;padding:7px 15px;border-radius:30px;font-weight:700">ثانوي</span></div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="max-width:1200px;margin:0 auto;padding:72px 24px;box-sizing:border-box">
+<h2 style="margin:0 0 24px;font-size:clamp(27px,4vw,38px);font-weight:800">الأسئلة الشائعة</h2>
+<div class="faq-list">
+<details><summary>هل المنصة مجانية؟</summary><p>واجهة إعداد البرومبت وتنظيم المذكرة متاحة من خلال الموقع. أمّا نموذج المحادثة الذي تستخدمه فقد يوفر خطة مجانية أو مدفوعة حسب الخدمة وشروطها.</p></details>
+<details><summary>أي نموذج محادثة أستعمل؟</summary><p>يمكنك استعمال نموذج محادثة يدعم اللغة العربية مثل ChatGPT أو Gemini أو Claude. اختر ما يناسبك، وتحقق من حدود الاستخدام المجاني وسياسة الخدمة.</p></details>
+<details><summary>هل المذكرات مطابقة للقالب الرسمي؟</summary><p>المنصة تساعد على تنظيم المحتوى في شكل مذكرة، لكنها لا تضمن المطابقة التلقائية لكل نموذج رسمي أو تحديث محلي. راجع القالب المعتمد لدى مؤسستك أو الجهة الوصية قبل الاعتماد.</p></details>
+<details><summary>هل يمكن تعديل النتيجة؟</summary><p>نعم، يمكنك مراجعة النص الناتج وتعديله قبل التصدير. لا تعتمد أي معلومة أو نشاط قبل التأكد من صحته وملاءمته لمستوى التلاميذ.</p></details>
+<details><summary>هل تغطي المنصة جميع المواد والمستويات؟</summary><p>تستهدف الأطوار الثلاثة، لكن التغطية تختلف حسب المادة والمستوى. يُرجى التحقق من الخيارات المتاحة داخل واجهة المنصة ومن مطابقة المحتوى للمنهاج المعتمد.</p></details>
+</div>
+</section>
+
+<!-- Teacher feedback: no fabricated testimonials -->
+<section id="teachers" style="background:#F0F4EF;border-top:1px solid #E3DED2;border-bottom:1px solid #E3DED2">
+<div style="max-width:1200px;margin:0 auto;padding:56px 24px;box-sizing:border-box">
+<h2 style="margin:0 0 10px;font-size:30px;font-weight:800">تجارب الأساتذة</h2>
+<p style="margin:0;color:#55645B;font-size:17px;max-width:820px">نحرص على نشر آراء حقيقية بعد تجربة المنصة، وبموافقة أصحابها. لم تُضف شهادات أو أسماء في هذه النسخة حتى لا ننسب لأي أستاذ رأيًا لم يصرّح به.</p>
+</div>
+</section>
+
+<!-- Review notice -->
+<section style="max-width:1200px;margin:0 auto;padding:28px 24px;box-sizing:border-box">
+<div style="border:1px solid #D8C79C;background:#FFF9E9;border-radius:14px;padding:18px 20px;color:#6A5428"><strong>تنبيه مهم:</strong> المذكرة الناتجة مسودة مساعدة وليست وثيقة معتمدة تلقائيًا. تقع على الأستاذ مسؤولية مراجعة المعلومات والأهداف والأنشطة ومدى توافقها مع المنهاج والقالب الرسمي قبل اعتمادها أو توزيعها.</div>
+</section>
+
+<!-- Share and contact -->
+<section id="contact" style="background:#fff;border-top:1px solid #E3DED2">
+<div style="max-width:1200px;margin:0 auto;padding:56px 24px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between">
+<div style="flex:1 1 280px"><h2 style="margin:0 0 10px;font-size:30px;font-weight:800">شارك الأداة مع زملائك</h2><p style="color:#55645B;margin:0 0 16px">قد تساعد هذه المنصة أستاذًا آخر في تنظيم عمله.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" onclick="sharePlatform('whatsapp')" style="border:0;background:#168A52;color:#fff;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:700;cursor:pointer">مشاركة عبر واتساب</button><button type="button" onclick="sharePlatform('facebook')" style="border:0;background:#2166C2;color:#fff;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:700;cursor:pointer">مشاركة عبر فيسبوك</button></div>
+</div>
+<div style="flex:1 1 280px"><h2 style="margin:0 0 10px;font-size:30px;font-weight:800">اتصل بنا</h2><p style="margin:0;color:#55645B">للاقتراحات والاستفسارات أو إرسال تجربة المنصة، أضف هنا بريد التواصل الرسمي وحسابات التواصل الخاصة بالمشروع قبل نشر الموقع.</p><div style="margin-top:12px;color:#0A4D32;font-weight:700">البريد: <span style="color:#756E60;font-weight:400">[أضف بريد التواصل]</span></div><div style="margin-top:6px;color:#0A4D32;font-weight:700">حسابات التواصل: <span style="color:#756E60;font-weight:400">[أضف روابط الحسابات]</span></div></div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer style="border-top: 1px solid #E3DED2">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: #55645B; font-size: 15px">
+<span>[اسم المنصة] · منصة الأستاذ الجزائري</span>
+<span>وفق مناهج الجيل الثاني · ابتدائي، متوسط، ثانوي</span>
+</div>
+</footer>
+
+</div>
+
+<script>
+function sharePlatform(platform){
+  var url=window.location.href;
+  var text='منصة تساعد الأستاذ الجزائري على إعداد وتنظيم الوثائق البيداغوجية. اطّلع عليها: '+url;
+  if(platform==='whatsapp'){
+    window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank','noopener');
+  }else{
+    window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),'_blank','noopener');
+  }
+}
+</script>
+
+<script>
+(function(){
+ "use strict";
+ const curriculum = {
+  "ابتدائي": {
+   "السنة الأولى ابتدائي":["اللغة العربية","الرياضيات","التربية الإسلامية","التربية المدنية","التربية العلمية والتكنولوجية","اللغة الفرنسية"],
+   "السنة الثانية ابتدائي":["اللغة العربية","الرياضيات","التربية الإسلامية","التربية المدنية","التربية العلمية والتكنولوجية","اللغة الفرنسية"],
+   "السنة الثالثة ابتدائي":["اللغة العربية","الرياضيات","التربية الإسلامية","التربية المدنية","التربية العلمية والتكنولوجية","اللغة الفرنسية","اللغة الإنجليزية"],
+   "السنة الرابعة ابتدائي":["اللغة العربية","الرياضيات","التربية الإسلامية","التربية المدنية","التربية العلمية والتكنولوجية","اللغة الفرنسية","اللغة الإنجليزية","التاريخ والجغرافيا"],
+   "السنة الخامسة ابتدائي":["اللغة العربية","الرياضيات","التربية الإسلامية","التربية المدنية","التربية العلمية والتكنولوجية","اللغة الفرنسية","اللغة الإنجليزية","التاريخ والجغرافيا"]
+  },
+  "متوسط": {
+   "السنة الأولى متوسط":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","علوم الطبيعة والحياة","العلوم الفيزيائية والتكنولوجيا","التربية الإسلامية","التربية المدنية","التاريخ والجغرافيا","الإعلام الآلي","التربية التشكيلية","التربية الموسيقية"],
+   "السنة الثانية متوسط":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","علوم الطبيعة والحياة","العلوم الفيزيائية والتكنولوجيا","التربية الإسلامية","التربية المدنية","التاريخ والجغرافيا","الإعلام الآلي","التربية التشكيلية","التربية الموسيقية"],
+   "السنة الثالثة متوسط":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","علوم الطبيعة والحياة","العلوم الفيزيائية والتكنولوجيا","التربية الإسلامية","التربية المدنية","التاريخ والجغرافيا","الإعلام الآلي","التربية التشكيلية","التربية الموسيقية"],
+   "السنة الرابعة متوسط":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","علوم الطبيعة والحياة","العلوم الفيزيائية والتكنولوجيا","التربية الإسلامية","التربية المدنية","التاريخ والجغرافيا","الإعلام الآلي","التربية التشكيلية","التربية الموسيقية"]
+  },
+  "ثانوي": {
+   "السنة الأولى ثانوي":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","العلوم الإسلامية","التاريخ والجغرافيا","العلوم الطبيعية","العلوم الفيزيائية","الإعلام الآلي","التكنولوجيا","الاقتصاد والمناجمنت","القانون","المحاسبة"],
+   "السنة الثانية ثانوي":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","العلوم الإسلامية","التاريخ والجغرافيا","الفلسفة","العلوم الطبيعية","العلوم الفيزيائية","الاقتصاد والمناجمنت","القانون","المحاسبة","التسيير المحاسبي والمالي"],
+   "السنة الثالثة ثانوي":["اللغة العربية","الرياضيات","اللغة الفرنسية","اللغة الإنجليزية","العلوم الإسلامية","التاريخ والجغرافيا","الفلسفة","العلوم الطبيعية","العلوم الفيزيائية","الاقتصاد والمناجمنت","القانون","المحاسبة","التسيير المحاسبي والمالي"]
+  }
+ };
+ const $=id=>document.getElementById(id);
+ function fillSelect(select, values, placeholder){
+   if(!select)return;
+   select.innerHTML="";
+   if(placeholder){const o=document.createElement("option");o.value="";o.textContent=placeholder;select.appendChild(o);}
+   values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;select.appendChild(o);});
+ }
+ function updateLevels(phaseId,levelId,subjectId){
+   const phase=$(phaseId), level=$(levelId), subject=$(subjectId);
+   if(!phase||!level||!subject)return;
+   const levels=Object.keys(curriculum[phase.value]||{});
+   fillSelect(level,levels,"اختر المستوى");
+   fillSelect(subject,[],"اختر المادة");
+ }
+ function updateSubjects(phaseId,levelId,subjectId){
+   const phase=$(phaseId),level=$(levelId),subject=$(subjectId);
+   if(!phase||!level||!subject)return;
+   fillSelect(subject,(curriculum[phase.value]||{})[level.value]||[],"اختر المادة");
+ }
+ const lessonPhase=$("f-phase"),lessonLevel=$("f-level"),lessonSubject=$("f-subject");
+ if(lessonPhase&&lessonLevel&&lessonSubject){
+   updateLevels("f-phase","f-level","f-subject");
+   lessonPhase.addEventListener("change",()=>updateLevels("f-phase","f-level","f-subject"));
+   lessonLevel.addEventListener("change",()=>updateSubjects("f-phase","f-level","f-subject"));
+ }
+ const aPhase=$("a-phase"),aLevel=$("a-level"),aSubject=$("a-subject");
+ if(aPhase&&aLevel&&aSubject){
+   updateLevels("a-phase","a-level","a-subject");
+   aPhase.addEventListener("change",()=>updateLevels("a-phase","a-level","a-subject"));
+   aLevel.addEventListener("change",()=>updateSubjects("a-phase","a-level","a-subject"));
+ }
+ function lessonPrompt(){
+   const phase=$("f-phase").value, level=$("f-level").value, subject=$("f-subject").value, title=$("f-title").value.trim();
+   if(!level||!subject||!title){alert("يرجى اختيار المستوى والمادة وكتابة عنوان الدرس.");return;}
+   const prompt=`أنت مساعد تربوي متخصص في المناهج الجزائرية. أعد مذكرة درس باللغة العربية وفق منهج الجيل الثاني، مع الالتزام بالمعلومات التالية دون اختلاق مرجع رسمي:\\nالطور: ${phase}\\nالمستوى: ${level}\\nالمادة: ${subject}\\nعنوان الدرس: ${title}\\n\\nنظّم المذكرة إلى: الكفاءة المستهدفة، الأهداف التعليمية، المكتسبات القبلية، الوسائل، وضعية الانطلاق، بناء التعلمات في مراحل واضحة مع نشاط الأستاذ والمتعلم، الاستثمار، التقويم، والمعالجة. اقترح مدة مناسبة وميّز بين المعطيات المؤكدة والاقتراحات. نبّه إلى ضرورة مراجعة المذكرة وفق الوثائق الرسمية المعتمدة.`;
+   $("lessonPromptText").value=prompt;
+   $("lessonPromptResult").hidden=false;
+ }
+ $("makeLessonPrompt")?.addEventListener("click",lessonPrompt);
+ $("copyLessonPrompt")?.addEventListener("click",async()=>{
+   const t=$("lessonPromptText").value;
+   try{await navigator.clipboard.writeText(t);$("copyLessonPrompt").textContent="تم النسخ ✓";}
+   catch(e){$("lessonPromptText").select();document.execCommand("copy");$("copyLessonPrompt").textContent="تم النسخ ✓";}
+ });
+ // Assessment questions
+ let qCount=0;
+ function addQuestion(text="",points=""){
+   qCount++;
+   const item=document.createElement("div");item.className="question-item";
+   const textLabel=document.createElement("label");textLabel.textContent="نص السؤال";
+   const textarea=document.createElement("textarea");textarea.placeholder="اكتب نص السؤال هنا...";textarea.value=text;textarea.required=true;
+   textLabel.appendChild(textarea);
+   const pointsLabel=document.createElement("label");pointsLabel.textContent="النقطة";
+   const pointInput=document.createElement("input");pointInput.type="number";pointInput.min="0";pointInput.step="0.25";pointInput.value=points||"4";
+   pointsLabel.appendChild(pointInput);
+   const remove=document.createElement("button");remove.type="button";remove.className="remove-question";remove.textContent="×";remove.title="حذف السؤال";remove.setAttribute("aria-label","حذف السؤال");
+   remove.addEventListener("click",()=>item.remove());
+   item.append(textLabel,pointsLabel,remove);$("questionList").appendChild(item);
+ }
+ $("addQuestion")?.addEventListener("click",()=>addQuestion());
+ addQuestion();addQuestion();
+ function buildAssessment(){
+   const kind=$("a-kind").value,term=$("a-term").value,phase=aPhase.value,level=aLevel.value,subject=aSubject.value;
+   const total=Number($("a-total").value);
+   const questions=[...document.querySelectorAll(".question-item")].map((el,i)=>({
+     text:el.querySelector("textarea").value.trim(),
+     points:Number(el.querySelector('input[type="number"]').value),
+     number:i+1
+   })).filter(q=>q.text);
+   if(!level||!subject){alert("اختر الطور والمستوى والمادة أولًا.");return;}
+   if(!questions.length){alert("أضف سؤالًا واحدًا على الأقل واكتب نصه.");return;}
+   if(questions.some(q=>!Number.isFinite(q.points)||q.points<0)){alert("تحقق من نقاط الأسئلة.");return;}
+   const sum=questions.reduce((s,q)=>s+q.points,0);
+   if(Math.abs(sum-total)>0.001&&!confirm(`مجموع نقاط الأسئلة هو ${sum} بينما العلامة الكلية ${total}. هل تريد المتابعة؟`))return;
+   const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+   const qHtml=questions.map(q=>`<div class="print-question"><h4>السؤال ${q.number}: <span style="font-weight:400">${esc(q.text).replace(/\n/g,"<br>")}</span> <span style="float:left">(${q.points} ن)</span></h4><div class="print-answer-space"></div><div class="print-answer-space"></div></div>`).join("");
+   $("assessmentPrint").innerHTML=`<article class="print-sheet">
+    <div class="print-top"><div><strong>الجمهورية الجزائرية الديمقراطية الشعبية</strong></div><div>وزارة التربية الوطنية</div><h2>${esc(kind)} — ${esc(term)}</h2></div>
+    <div class="print-meta">
+     <div><b>المؤسسة:</b> ${esc($("a-school").value||"................................")}</div><div><b>الأستاذ:</b> ${esc($("a-teacher").value||"................................")}</div>
+     <div><b>الطور:</b> ${esc(phase)}</div><div><b>المستوى:</b> ${esc(level)}</div>
+     <div><b>المادة:</b> ${esc(subject)}</div><div><b>القسم:</b> ${esc($("a-class").value||"................")}</div>
+     <div><b>المدة:</b> ${esc($("a-duration").value)}</div><div><b>العلامة:</b> ${esc(total)} نقطة</div>
+    </div>
+    <div style="text-align:center;margin:10px 0 20px"><b>الاسم واللقب:</b> ....................................................</div>
+    ${qHtml}
+    <div class="print-footer"><span>بالتوفيق والنجاح</span><span>إمضاء الأستاذ: ....................</span></div>
+   </article>`;
+   $("printAssessment").disabled=false;
+   $("assessmentPrint").dataset.ready="1";
+   $("assessmentPrint").scrollIntoView({behavior:"smooth",block:"start"});
+ }
+ $("buildAssessment")?.addEventListener("click",buildAssessment);
+ $("printAssessment")?.addEventListener("click",()=>{
+   if($("assessmentPrint").dataset.ready!=="1"){alert("أنشئ ورقة التقييم أولًا.");return;}
+   window.print();
+ });
+})();
+</script>
+
+
+<script>
+(function(){
+ const $=id=>document.getElementById(id);
+ let currentAgentPrompt="";
+ $("agentMakePrompt")?.addEventListener("click",()=>{
+  const phase=$("a-phase")?.value||"يحدده الأستاذ";
+  const level=$("a-level")?.value||"يحدده الأستاذ";
+  const subject=$("a-subject")?.value||"يحدده الأستاذ";
+  const kind=$("a-kind")?.value||"اختبار";
+  const lessons=$("agent-lessons").value.trim();
+  if(!lessons){alert("اكتب عنوان الوحدة أو الدروس أولًا.");return;}
+  currentAgentPrompt=`تصرّف كوكيل متخصص في إعداد التقويمات التربوية وفق المنهاج الجزائري، ولا تخترع معلومات عن المنهاج أو تدّعي مطابقة رسمية دون سند.\\n\\nالمعطيات:\\nالطور: ${phase}\\nالمستوى: ${level}\\nالمادة: ${subject}\\nنوع التقييم: ${kind}\\nالدروس/الوحدة: ${lessons}\\nعدد التمارين: ${$("agent-count").value}\\nالصعوبة: ${$("agent-difficulty").value}\\nنوع الأسئلة: ${$("agent-types").value}\\nالعلامة: ${$("a-total")?.value||20}\\n\\nالمطلوب:\\n1) أنشئ تقييمًا متوازنًا مناسبًا للمستوى، ولا تخرج عن الدروس المحددة.\\n2) نوّع مستويات الفهم والتطبيق والاستدلال حسب طبيعة المادة.\\n3) اكتب تعليمات واضحة ومعطيات كافية لكل سؤال.\\n4) وزّع النقاط بحيث يساوي مجموعها العلامة المحددة، وأظهر نقاط كل جزء.\\n5) أرفق نموذج إجابة مفصلًا وسلم تنقيط دقيقًا في قسم منفصل للأستاذ.\\n6) راجع سلامة اللغة وصحة الحلول وتدرج الصعوبة، وصرّح بأي معلومة تحتاج تحققًا.\\n7) لا تضع الإجابات في نسخة التلميذ.\\nأخرج النتيجة بعناوين واضحة وجداول قابلة للنقل إلى محرر مستندات.`;
+  $("agentPrompt").value=currentAgentPrompt;
+  $("agentPromptBox").hidden=false;
+  $("agentCopyPrompt").disabled=false;
+ });
+ $("agentCopyPrompt")?.addEventListener("click",async()=>{
+  try{await navigator.clipboard.writeText(currentAgentPrompt);$("agentCopyPrompt").textContent="تم النسخ ✓";}
+  catch(e){$("agentPrompt").select();document.execCommand("copy");$("agentCopyPrompt").textContent="تم النسخ ✓";}
+ });
+})();
+</script>
+
+</body>
+</html>
